@@ -22,7 +22,7 @@ public class CommandHandler {
     }
   
     // Prints output for help command
-    //@@author coraleaf0602
+    //@@author coraleaf0602 &yentheng0110 &kaboomzxc
     public void help() {
         System.out.println("""
                 +-----------+---------------------------------------+---------------------------------+
@@ -33,6 +33,7 @@ public class CommandHandler {
                 | Add       | add n/NAME ic/NRIC [p/PHONE_NUMBER]   | add n/James Ho ic/S9534567A     |
                 |           | [d/DIAGNOSIS] [m/MEDICATION]          | p/91234567 d/Asthma m/Albuterol |
                 |           | [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] | ha/NUS-PGPR dob/1990-01-01      |
+                |          |[al/ALLERGY] [s/SEX] [mh/MEDICALHISTORY]| al/Pollen s/Male mh/diabetes    |
                 +-----------+---------------------------------------+---------------------------------+
                 | List      | list                                  | list                            |
                 +-----------+---------------------------------------+---------------------------------+
@@ -42,7 +43,10 @@ public class CommandHandler {
                 |           | find d/DIAGNOSIS     OR               | find d/Fever                    |
                 |           | find m/MEDICATION    OR               | find m/Panadol                  |
                 |           | find ha/HOME_ADDRESS OR               | find ha/NUS PGPR                |
-                |           | find dob/DATE_OF_BIRTH                | find dob/1990-01-01             |
+                |           | find dob/DATE_OF_BIRTH OR             | find dob/1990-01-01             |
+                |           | find al/ALLERGY       OR              | find al/Peanuts                 |
+                |           | find s/SEX           OR               | find s/Female                   |
+                |           | find mh/MEDICAL_HISTORY               | find mh/Diabetes                |
                 +-----------+---------------------------------------+---------------------------------+
                 | Delete    | delete NRIC                           | delete S9534567A                |
                 +-----------+---------------------------------------+---------------------------------+
@@ -64,6 +68,10 @@ public class CommandHandler {
         String homeAddress = "";
         String diagnosis = "";
         List<String> medications = new ArrayList<>();
+        String allergy = "";
+        String sex = "";
+        String medicalHistory = "";
+
 
         // Extract name
         int nameStart = input.indexOf("n/");
@@ -129,6 +137,28 @@ public class CommandHandler {
             int dobEnd = findNextFieldStart(input, dobStart + 4);
             dateOfBirth = input.substring(dobStart + 4, dobEnd).trim();
         }
+        // @@author kaboomzxc
+        // Extract allergy
+        int allergyStart = input.indexOf("al/");
+        if (allergyStart != -1) {
+            int allergyEnd = findNextFieldStart(input, allergyStart + 3);
+            allergy = input.substring(allergyStart + 3, allergyEnd).trim();
+        }
+        // @@author kaboomzxc
+        // Extract sex
+        int sexStart = input.indexOf("s/");
+        if (sexStart != -1) {
+            int sexEnd = findNextFieldStart(input, sexStart + 2);
+            sex = input.substring(sexStart + 2, sexEnd).trim();
+        }
+        // @@author kaboomzxc
+        // Extract medical history
+        int medicalHistoryStart = input.indexOf("mh/");
+        if (medicalHistoryStart != -1) {
+            int medicalHistoryEnd = findNextFieldStart(input, medicalHistoryStart + 3);
+            medicalHistory = input.substring(medicalHistoryStart + 3, medicalHistoryEnd).trim();
+        }
+
 
         Patient patient = new Patient(name, nric);
         patient.setPhoneNumber(phoneNumber);
@@ -136,6 +166,9 @@ public class CommandHandler {
         patient.setMedication(medications);
         patient.setHomeAddress(homeAddress);
         patient.setDateOfBirth(dateOfBirth);
+        patient.setAllergy(allergy);
+        patient.setSex(sex);
+        patient.setMedicalHistory(medicalHistory);
 
         records.addPatient(patient);
         System.out.println("Patient " + name + " with NRIC " + nric + " added.");
@@ -147,7 +180,7 @@ public class CommandHandler {
     // Utility method to find the start of the next field or the end of the input string
     private int findNextFieldStart(String input, int currentIndex) {
         int nextIndex = input.length(); // Default to end of input
-        String[] prefixes = {"ic/", "p/", "d/", "m/", "ha/", "dob/"};
+        String[] prefixes = {"ic/", "p/", "d/", "m/", "ha/", "dob/", "al/", "s/", "mh/"};
         for (String prefix : prefixes) {
             int index = input.indexOf(prefix, currentIndex);
             if (index != -1 && index < nextIndex) {
@@ -157,7 +190,7 @@ public class CommandHandler {
         return nextIndex;
     }
 
-    //@author yentheng0110
+    //@author yentheng0110 & kaboomzxc
     public void list(Records records) {
         List<Patient> patients = records.getPatients();
         if (patients.isEmpty()) {
@@ -168,7 +201,8 @@ public class CommandHandler {
             System.out.println("Name: " + patient.getName() + ", NRIC: " + patient.getNric() +
                     ", Phone: " + patient.getPhoneNumber() + ", Diagnosis: " + patient.getDiagnosis() +
                     ", Medication: " + patient.getMedication() + ", Address: " + patient.getHomeAddress() +
-                    ", DOB: " + patient.getDateOfBirth());
+                    ", DOB: " + patient.getDateOfBirth() + ", Allergy: " + patient.getAllergy() +
+                    ", Sex: " + patient.getSex() + ", Medical History: " + patient.getMedicalHistory());
         }
     }
 
@@ -224,8 +258,9 @@ public class CommandHandler {
 
         if (searchParams.isEmpty()) {
             logger.log(Level.WARNING, "No valid search parameters provided.");
-            System.out.println("Invalid search parameters. Please use the format: "
-                    + "find n/NAME ic/NRIC [p/PHONE] [d/DIAGNOSIS] [m/MEDICATION] [ha/ADDRESS] [dob/DOB]");
+            System.out.println("Invalid search parameters. Please use the format: find n/NAME ic/NRIC [p/PHONE] " +
+                    "[d/DIAGNOSIS] [m/MEDICATION] [ha/ADDRESS] [dob/DOB] [a/ALLERGY] [s/SEX] [mh/MEDICAL_HISTORY]");
+
             return;
         }
 
@@ -260,8 +295,9 @@ public class CommandHandler {
     }
 
     private boolean isValidSearchKey(String key) {
-        return Arrays.asList("n", "ic", "p", "d", "m", "ha", "dob").contains(key);
+        return Arrays.asList("n", "ic", "p", "d", "m", "ha", "dob", "al", "s", "mh").contains(key);
     }
+
 
     private boolean matchesSearchCriteria(Patient patient, Map<String, String> searchParams) {
         logger.log(Level.FINE, "Checking if patient matches search criteria: {0}", patient);
@@ -285,6 +321,12 @@ public class CommandHandler {
                 return patient.getHomeAddress().toLowerCase().contains(value);
             case "dob":
                 return patient.getDateOfBirth().toLowerCase().contains(value);
+            case "al":
+                return patient.getAllergy().toLowerCase().contains(value);
+            case "s":
+                return patient.getSex().toLowerCase().contains(value);
+            case "mh":
+                return patient.getMedicalHistory().toLowerCase().contains(value);
             default:
                 return false;
             }

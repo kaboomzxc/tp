@@ -11,6 +11,10 @@ public class Patient {
     private String homeAddress;
     private String diagnosis;
     private List<String> medication;
+    private String allergy;
+    private String sex;
+    private String medicalHistory;
+
 
     // default constructor only takes in name and NRIC
     public Patient(String name, String nric) {
@@ -21,11 +25,14 @@ public class Patient {
         this.homeAddress = "";
         this.diagnosis = "";
         this.medication = new ArrayList<>();
+        this.allergy = "";
+        this.sex = "";
+        this.medicalHistory = "";
     }
 
     // constructor used in retrieving data
     public Patient(String name, String nric, String phoneNumber, String dateOfBirth, String homeAddress,
-                   String diagnosis, List<String> medications) {
+                   String diagnosis, List<String> medications, String allergy, String sex, String medicalHistory) {
         this.name = name;
         this.nric = nric;
         this.dateOfBirth = dateOfBirth;
@@ -33,6 +40,9 @@ public class Patient {
         this.homeAddress = homeAddress;
         this.diagnosis = diagnosis;
         this.medication = medications;
+        this.allergy = allergy;
+        this.sex = sex;
+        this.medicalHistory = medicalHistory;
     }
 
     // getters and setters
@@ -91,12 +101,39 @@ public class Patient {
     public void setMedication(List<String> medication) {
         this.medication = medication;
     }
+    // @@author kaboomzxc
+    public String getAllergy() {
+        return allergy;
+    }
+    // @@author kaboomzxc
+    public void setAllergy(String allergy) {
+        this.allergy = allergy;
+    }
+    // @@author kaboomzxc
+    public String getSex() {
+        return sex;
+    }
+    // @@author kaboomzxc
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+    // @@author kaboomzxc
+    public String getMedicalHistory() {
+        return medicalHistory;
+    }
+    // @@author kaboomzxc
+    public void setMedicalHistory(String medicalHistory) {
+        this.medicalHistory = medicalHistory;
+    }
+
 
     @Override
     public String toString() {
         return "Name: " + getName() + ", NRIC: " + getNric() +
                 ", Phone: " + getPhoneNumber() + ", Diagnosis: " + getDiagnosis() +
                 ", Medication: " + getMedication() + ", Address: " + getHomeAddress() +
-                ", DOB: " + getDateOfBirth();
+                ", DOB: " + getDateOfBirth() + ", Allergy: " + getAllergy() +
+                ", Sex: " + getSex() + ", Medical History: " + getMedicalHistory();
     }
+
 }

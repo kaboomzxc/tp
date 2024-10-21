@@ -451,16 +451,17 @@ public class BookBobTest {
         });
     }
 
-    //@@author PrinceCatt
+    //@@author PrinceCatt & kaboomzxc
     @Test
     void testTextConverterFullInformation() {
         List<String> medications = new ArrayList<>();
         medications.add("Gaviscon");
         Patient patient = new Patient("John", "S9765432T", "87658976", "06071997",
-                "Bukit Gombak", "Gastric", medications);
+                "Bukit Gombak", "Gastric", medications, "Peanuts", "Male", "History of gastritis");
         String output = fileHandler.convertPatientToOutputText(patient);
         assertEquals(output, "Name: John | NRIC: S9765432T | Phone Number: 87658976 | " +
-                "Date_Of_Birth: 06071997 | Home Address: Bukit Gombak | Diagnosis: Gastric | Medication: Gaviscon;");
+                "Date_Of_Birth: 06071997 | Home Address: Bukit Gombak | Diagnosis: Gastric | Medication: Gaviscon;" +
+                " | Allergy: Peanuts | Sex: Male | Medical History: History of gastritis", output);
     }
 
     //@@author PrinceCatt

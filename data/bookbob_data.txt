@@ -1,7 +1,9 @@
-Name: John Doe | NRIC: S9534567A | Phone Number: 98765432 | Date_Of_Birth: 13121995 | Home Address: NUS-PGPR | Diagnosis: Hypertension | Medication: Lisinopril;
-Name: James-Ho | NRIC: S9534567A | Phone Number: 13121995 | Date_Of_Birth: 91234567 | Home Address: NUS-PGPR | Diagnosis: Asthma | Medication: Albuterol;
-Name: Joyce Teng | NRIC: S7854321A | Phone Number: 13121995 | Date_Of_Birth:  | Home Address:  | Diagnosis:  | Medication: ;
-Name: Patrick | NRIC: T09876543B | Phone Number:  | Date_Of_Birth: 01102009 | Home Address:  | Diagnosis: Gastric | Medication:
-Name: Mabel Mah | NRIC: T09876543H | Phone Number:  | Date_Of_Birth: 09072009 | Home Address: Farrer Road | Diagnosis: Asthma | Medication: Panadol;
-Name: Chan Wai Yin | NRIC: T0789675G | Phone Number: 98743789 | Date_Of_Birth: 03072006 | Home Address:  | Diagnosis:  | Medication: ;
-Name: Tan Ah Teck | NRIC: S9876543H | Phone Number: 87654320 | Date_Of_Birth: 09121998 | Home Address:  | Diagnosis:  | Medication:
+Name: John Doe | NRIC: S9534567A | Phone Number: 98765432 | Date_Of_Birth: 13121995 | Home Address: NUS-PGPR | Diagnosis: Hypertension | Medication: Lisinopril; | Allergy:  | Sex:  | Medical History: 
+Name: James-Ho | NRIC: S9534567A | Phone Number: 13121995 | Date_Of_Birth: 91234567 | Home Address: NUS-PGPR | Diagnosis: Asthma | Medication: Albuterol; | Allergy:  | Sex:  | Medical History: 
+Name: Joyce Teng | NRIC: S7854321A | Phone Number: 13121995 | Date_Of_Birth:  | Home Address:  | Diagnosis:  | Medication:  | Allergy:  | Sex:  | Medical History: 
+Name: Patrick | NRIC: T09876543B | Phone Number:  | Date_Of_Birth: 01102009 | Home Address:  | Diagnosis: Gastric | Medication: ; | Allergy:  | Sex:  | Medical History: 
+Name: Mabel Mah | NRIC: T09876543H | Phone Number:  | Date_Of_Birth: 09072009 | Home Address: Farrer Road | Diagnosis: Asthma | Medication: Panadol; | Allergy:  | Sex:  | Medical History: 
+Name: Chan Wai Yin | NRIC: T0789675G | Phone Number: 98743789 | Date_Of_Birth: 03072006 | Home Address:  | Diagnosis:  | Medication:  | Allergy:  | Sex:  | Medical History: 
+Name: Tan Ah Teck | NRIC: S9876543H | Phone Number: 87654320 | Date_Of_Birth: 09121998 | Home Address:  | Diagnosis:  | Medication: ; | Allergy:  | Sex:  | Medical History: 
+Name: Wang Ritz | NRIC: S8634567A | Phone Number: 91234567 | Date_Of_Birth: 1990-01-01 | Home Address: PGPR | Diagnosis: Fever | Medication: Panadol; | Allergy: grass | Sex: female | Medical History: diabetes
+Name: John Doe | NRIC: S1234567A | Phone Number: 98765432 | Date_Of_Birth: 1980-01-01 | Home Address: 123 Main St | Diagnosis: Flu | Medication: Tamiflu; | Allergy: Penicillin | Sex: Male | Medical History: None

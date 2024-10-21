@@ -30,10 +30,10 @@ public class FileHandler {
                 File file = new File(filePath);
                 file.createNewFile();              //create new data file
             } else {                               //directory already created
-                logger.log(Level.INFO, "Directory exsited, creating new file");
+                logger.log(Level.INFO, "Directory existed, creating new file");
                 File file = new File(filePath);
                 if(file.createNewFile()) {         //file was not created
-                    logger.log(Level.INFO, "Directory exsited, creating new file");
+                    logger.log(Level.INFO, "Directory existed, creating new file");
                 } else {
                     retrieveData(records);
                 }
@@ -54,6 +54,11 @@ public class FileHandler {
         for (String medication : medications) {
             output += medication + ";";
         }
+
+        output += " | " + "Allergy: " + patient.getAllergy();
+        output += " | " + "Sex: " + patient.getSex();
+        output += " | " + "Medical History: " + patient.getMedicalHistory();
+
         return output;
     }
 
@@ -65,7 +70,7 @@ public class FileHandler {
             fw.write(toWrite + "\n");
         }
         fw.close();
-        logger.log(Level.INFO, "Autosavd successfully");
+        logger.log(Level.INFO, "Autosaved successfully");
     }
 
     public static void retrieveData(Records records){
@@ -75,19 +80,27 @@ public class FileHandler {
             while (reader.hasNextLine()) {
                 String line = reader.nextLine();
                 String[] data = line.split("\\|");
+
                 String name = data[0].substring(6).trim();
                 String nric = data[1].substring(6).trim();
                 String phoneNumber = data[2].substring(15).trim();
                 String dateOfBirth = data[3].substring(16).trim();
                 String homeAddress = data[4].substring(15).trim();
                 String diagnosis = data[5].substring(12).trim();
+
                 ArrayList<String> medications = new ArrayList<>();
                 String[] rawMedications = data[6].substring(12).trim().split(";");
                 for(int i = 0; i < rawMedications.length; i++) {
                     medications.add(rawMedications[i].trim());
                 }
-                Patient patient = new Patient(name, nric, phoneNumber,
-                        dateOfBirth, homeAddress, diagnosis, medications);
+
+                String allergy = data[7].substring(9).trim();
+                String sex = data[8].substring(5).trim();
+                String medicalHistory = data[9].substring(17).trim();
+
+
+                Patient patient = new Patient(name, nric, phoneNumber, dateOfBirth, homeAddress,
+                        diagnosis, medications, allergy, sex, medicalHistory);
                 records.addPatient(patient);
             }
             logger.log(Level.INFO, "Retrieved successfully");
