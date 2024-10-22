@@ -259,7 +259,7 @@ public class CommandHandler {
         if (searchParams.isEmpty()) {
             logger.log(Level.WARNING, "No valid search parameters provided.");
             System.out.println("Invalid search parameters. Please use the format: find n/NAME ic/NRIC [p/PHONE] " +
-                    "[d/DIAGNOSIS] [m/MEDICATION] [ha/ADDRESS] [dob/DOB] [a/ALLERGY] [s/SEX] [mh/MEDICAL_HISTORY]");
+                    "[d/DIAGNOSIS] [m/MEDICATION] [ha/ADDRESS] [dob/DOB] [al/ALLERGY] [s/SEX] [mh/MEDICAL_HISTORY]");
 
             return;
         }
