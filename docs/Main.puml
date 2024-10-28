@@ -1,0 +1,64 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Main {
+    -{static} logger: Logger
+    +{static} main(args: String[]): void
+}
+
+class "Command Handler Class" as CommandHandler {
+    -{static} logger: Logger
+    +CommandHandler()
+    +help(): void
+    +add(input: String, records: Records): void
+    +list(records: Records): void
+    +edit(input: String, records: Records): void
+    +editVisit(input: String, records: Records): void
+    +delete(nric: String, records: Records): void
+    +find(input: String, records: Records): void
+    +exit(input: String): void
+    +addVisit(input: String, records: Records): void
+    +appointment(input: String, appointmentRecord: AppointmentRecord): void
+    +deleteAppointment(input: String, appointmentRecord: AppointmentRecord): void
+    +listAppointments(appointmentRecord: AppointmentRecord): void
+    +findAppointment(input: String, appointmentRecord: AppointmentRecord): void
+    +removePastAppointments(appointmentRecord: AppointmentRecord): void
+    +printVisits(patient: Patient): void
+    -findNextFieldStart(input: String, currentIndex: int): int
+}
+
+class FileHandler {
+    +{static} initFile(Records): void
+    +{static} initFile(AppointmentRecord): void
+}
+
+class Records {
+    -patients: ArrayList<Patient>
+}
+
+class AppointmentRecord {
+    -appointments: List<Appointment>
+    +appointmentNotice(): void
+}
+
+class FindVisit {
+    +{static} findVisitByIc(String, Records): void
+    +{static} findVisitByMedication(String, Records): void
+    +{static} findVisitByDiagnosis(String, Records): void
+}
+
+Main --> CommandHandler : uses
+Main --> FileHandler : uses
+Main --> FindVisit : uses
+Main --> Records : creates and manages
+Main --> AppointmentRecord : creates and manages
+
+note right of Main
+  Entry point that:
+  1. Initializes system components
+  2. Processes user commands
+  3. Handles error logging
+  4. Manages program flow
+end note
+
+@enduml
