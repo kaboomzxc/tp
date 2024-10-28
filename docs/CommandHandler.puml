@@ -1,0 +1,49 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class CommandHandler {
+    -{static} logger: Logger
+    +CommandHandler()
+    +help(): void
+    +add(input: String, records: Records): void
+    +list(records: Records): void
+    +edit(input: String, records: Records): void
+    +delete(nric: String, records: Records): void
+    +find(input: String, records: Records): void
+    +addVisit(input: String, records: Records): void
+    +appointment(input: String, appointmentRecord: AppointmentRecord): void
+    +deleteAppointment(input: String, appointmentRecord: AppointmentRecord): void
+    +listAppointments(appointmentRecord: AppointmentRecord): void
+    +findAppointment(input: String, appointmentRecord: AppointmentRecord): void
+    -findNextFieldStart(input: String, currentIndex: int): int
+}
+
+class Records {
+    -patients: ArrayList<Patient>
+}
+
+class AppointmentRecord {
+    -appointments: List<Appointment>
+}
+
+class FileHandler {
+    +{static} autosave(Records): void
+    +{static} autosave(AppointmentRecord): void
+}
+
+CommandHandler --> Records: manages
+CommandHandler --> AppointmentRecord: manages
+CommandHandler --> FileHandler: uses
+CommandHandler ..> Patient: creates/modifies
+CommandHandler ..> Appointment: creates/modifies
+CommandHandler ..> Visit: creates/modifies
+
+note right of CommandHandler
+  Handles all user commands for:
+  - Patient management (add, edit, delete, find)
+  - Appointment management (book, cancel, list)
+  - Visit records (add, find)
+  - Autosaving through FileHandler
+end note
+
+@enduml
