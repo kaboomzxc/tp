@@ -8,8 +8,10 @@ class CommandHandler {
     +add(input: String, records: Records): void
     +list(records: Records): void
     +edit(input: String, records: Records): void
+    +editVisit(input: String, records: Records): void
     +delete(nric: String, records: Records): void
     +find(input: String, records: Records): void
+    +exit(input: String): void
     +addVisit(input: String, records: Records): void
     +appointment(input: String, appointmentRecord: AppointmentRecord): void
     +deleteAppointment(input: String, appointmentRecord: AppointmentRecord): void
