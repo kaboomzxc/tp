@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Assertions;
 
 public class MainTest {
 
+    //@@author kaboomzxc
     @Test
     void testCommandHandlerInitialization() {
         Assertions.assertDoesNotThrow(() -> {
@@ -14,6 +15,7 @@ public class MainTest {
         }, "CommandHandler initialization should not throw exception");
     }
 
+    //@@author kaboomzxc
     @Test
     void testCommandHandlerHelp() throws IOException {
         CommandHandler handler = new CommandHandler();
@@ -22,6 +24,7 @@ public class MainTest {
         }, "CommandHandler help should not throw exception");
     }
 
+    //@@author kaboomzxc
     // Core Command Tests
     @Test
     void testMainProcessCommandExit() {
@@ -31,6 +34,7 @@ public class MainTest {
         }, "Processing exit command should not throw exception");
     }
 
+    //@@author kaboomzxc
     @Test
     void testMainProcessCommandHelp() {
         Assertions.assertDoesNotThrow(() -> {
@@ -39,6 +43,7 @@ public class MainTest {
         }, "Processing help command should not throw exception");
     }
 
+    //@@author kaboomzxc
     @Test
     void testMainProcessCommandUnknown() {
         Assertions.assertDoesNotThrow(() -> {
@@ -47,6 +52,7 @@ public class MainTest {
         }, "Processing unknown command should not throw exception");
     }
 
+    //@@author kaboomzxc
     // List Related Tests
     @Test
     void testMainProcessCommandList() {
@@ -56,7 +62,7 @@ public class MainTest {
         }, "Processing list command should not throw exception");
     }
 
-
+    //@@author kaboomzxc
     // Basic Add Operations
     @Test
     void testMainProcessCommandBasicAdd() {
@@ -66,6 +72,7 @@ public class MainTest {
         }, "Processing add command should not throw exception");
     }
 
+    //@@author kaboomzxc
     @Test
     void testMainProcessCommandAddWithAllFields() {
         Assertions.assertDoesNotThrow(() -> {
@@ -76,6 +83,7 @@ public class MainTest {
         }, "Processing detailed add command should not throw exception");
     }
 
+    //@@author kaboomzxc
     // Find Operations
     @Test
     void testMainProcessCommandFind() {
@@ -85,6 +93,7 @@ public class MainTest {
         }, "Processing find command should not throw exception");
     }
 
+    //@@author kaboomzxc
     @Test
     void testMainProcessCommandFindByNRIC() {
         Assertions.assertDoesNotThrow(() -> {
@@ -93,6 +102,7 @@ public class MainTest {
         }, "Processing find by NRIC command should not throw exception");
     }
 
+    //@@author kaboomzxc
     // Find Related Tests
     @Test
     void testMainProcessCommandFindDiagnosis() {
@@ -102,6 +112,7 @@ public class MainTest {
         }, "Processing find diagnosis command should not throw exception");
     }
 
+    //@@author kaboomzxc
     @Test
     void testMainProcessCommandFindMedication() {
         Assertions.assertDoesNotThrow(() -> {
@@ -110,24 +121,28 @@ public class MainTest {
         }, "Processing find medication command should not throw exception");
     }
 
+    //@@author kaboomzxc
     @Test
     void testMainProcessCommandFindByName() throws IOException {
         boolean result = Main.processCommand("find n/John");
         Assertions.assertFalse(result, "Find by name should return false");
     }
 
+    //@@author kaboomzxc
     @Test
     void testMainProcessCommandFindByPhone() throws IOException {
         boolean result = Main.processCommand("find p/91234567");
         Assertions.assertFalse(result, "Find by phone should return false");
     }
 
+    //@@author kaboomzxc
     @Test
     void testMainProcessCommandFindByInvalidCriteria() throws IOException {
         boolean result = Main.processCommand("find xyz/123");
         Assertions.assertFalse(result, "Find with invalid criteria should return false");
     }
 
+    //@@author kaboomzxc
     // Visit Operations
     @Test
     void testMainProcessCommandAddVisit() {
@@ -138,6 +153,7 @@ public class MainTest {
         }, "Processing add visit command should not throw exception");
     }
 
+    //@@author kaboomzxc
     @Test
     void testMainProcessCommandFindVisit() {
         Assertions.assertDoesNotThrow(() -> {
@@ -146,6 +162,7 @@ public class MainTest {
         }, "Processing find visit command should not throw exception");
     }
 
+    //@@author kaboomzxc
     // Appointment Operations
     @Test
     void testMainProcessCommandAddAppointment() {
@@ -156,6 +173,7 @@ public class MainTest {
         }, "Processing add appointment command should not throw exception");
     }
 
+    //@@author kaboomzxc
     @Test
     void testMainProcessCommandListAppointments() {
         Assertions.assertDoesNotThrow(() -> {
@@ -164,6 +182,7 @@ public class MainTest {
         }, "Processing list appointments command should not throw exception");
     }
 
+    //@@author kaboomzxc
     @Test
     void testMainProcessCommandAppointment() throws IOException {
         boolean result = Main.processCommand(
@@ -171,12 +190,14 @@ public class MainTest {
         Assertions.assertFalse(result, "Add appointment command should return false");
     }
 
+    //@@author kaboomzxc
     @Test
     void testMainProcessCommandAppointmentMissingFields() throws IOException {
         boolean result = Main.processCommand("appointment n/John Doe ic/S9876543A");
         Assertions.assertFalse(result, "Appointment with missing fields should return false");
     }
 
+    //@@author kaboomzxc
     // Edit Operations
     @Test
     void testMainProcessCommandEdit() {
@@ -187,6 +208,7 @@ public class MainTest {
         }, "Processing edit command should not throw exception");
     }
 
+    //@@author kaboomzxc
     @Test
     void testMainProcessCommandEditVisit() {
         Assertions.assertDoesNotThrow(() -> {
@@ -196,6 +218,7 @@ public class MainTest {
         }, "Processing edit visit command should not throw exception");
     }
 
+    //@@author kaboomzxc
     // Edit Related Tests
     @Test
     void testMainProcessCommandEditMissingNRIC() {
@@ -204,12 +227,14 @@ public class MainTest {
         }, "Edit without NRIC should throw AssertionError");
     }
 
+    //@@author kaboomzxc
     @Test
     void testMainProcessCommandEditMissingToKeyword() throws IOException {
         boolean result = Main.processCommand("edit ic/S9876543A n/Jane Doe");
         Assertions.assertFalse(result, "Edit without /to keyword should return false");
     }
 
+    //@@author kaboomzxc
     // Delete Operations
     @Test
     void testMainProcessCommandDelete() {
@@ -219,6 +244,7 @@ public class MainTest {
         }, "Processing delete command should not throw exception");
     }
 
+    //@@author kaboomzxc
     @Test
     void testMainProcessCommandDeleteAppointment() {
         Assertions.assertDoesNotThrow(() -> {
@@ -228,13 +254,14 @@ public class MainTest {
         }, "Processing delete appointment command should not throw exception");
     }
 
+    //@@author kaboomzxc
     @Test
     void testMainProcessCommandDeleteNoNRIC() throws IOException {
         boolean result = Main.processCommand("delete");
         Assertions.assertFalse(result, "Delete without NRIC should return false");
     }
 
-
+    //@@author kaboomzxc
     // Error Cases - Missing Fields
     @Test
     void testMainProcessCommandAddMissingName() {
@@ -244,6 +271,7 @@ public class MainTest {
         }, "Add command with missing name handled correctly");
     }
 
+    //@@author kaboomzxc
     @Test
     void testMainProcessCommandAddMissingNRIC() {
         Assertions.assertDoesNotThrow(() -> {
@@ -252,6 +280,7 @@ public class MainTest {
         }, "Add command with missing NRIC handled correctly");
     }
 
+    //@@author kaboomzxc
     @Test
     void testMainProcessCommandAddMissingVisit() {
         Assertions.assertDoesNotThrow(() -> {
@@ -260,19 +289,21 @@ public class MainTest {
         }, "Add command with missing visit handled correctly");
     }
 
-
+    //@@author kaboomzxc
     @Test
     void testMainProcessCommandAddVisitMissingNRIC() throws IOException {
         boolean result = Main.processCommand("addVisit v/01-11-2024 14:30 d/Fever");
         Assertions.assertFalse(result, "Add visit without NRIC should return false");
     }
 
+    //@@author kaboomzxc
     @Test
     void testMainProcessCommandAddVisitMissingDate() throws IOException {
         boolean result = Main.processCommand("addVisit ic/S9876543A d/Fever");
         Assertions.assertFalse(result, "Add visit without date should return false");
     }
 
+    //@@author kaboomzxc
     // Invalid Format Tests
     @Test
     void testMainProcessCommandInvalidNRICFormat() {
@@ -282,6 +313,7 @@ public class MainTest {
         }, "Processing add command with invalid NRIC should not throw exception");
     }
 
+    //@@author kaboomzxc
     @Test
     void testMainProcessCommandInvalidDateFormat() {
         Assertions.assertDoesNotThrow(() -> {
@@ -290,6 +322,7 @@ public class MainTest {
         }, "Processing add command with invalid date format should not throw exception");
     }
 
+    //@@author kaboomzxc
     @Test
     void testMainProcessCommandInvalidTimeFormat() {
         Assertions.assertDoesNotThrow(() -> {
@@ -298,6 +331,7 @@ public class MainTest {
         }, "Add command with invalid time format handled correctly");
     }
 
+    //@@author kaboomzxc
     @Test
     void testMainProcessCommandValidRequiredFields() {
         Assertions.assertDoesNotThrow(() -> {
@@ -306,6 +340,7 @@ public class MainTest {
         }, "Processing add command with valid required fields should not throw exception");
     }
 
+    //@@author kaboomzxc
     @Test
     void testMainProcessCommandValidDateTimeFormat() {
         Assertions.assertDoesNotThrow(() -> {
@@ -314,6 +349,7 @@ public class MainTest {
         }, "Processing add command with valid date/time should not throw exception");
     }
 
+    //@@author kaboomzxc
     @Test
     void testMainProcessCommandMissingFields() {
         Assertions.assertDoesNotThrow(() -> {
@@ -322,6 +358,7 @@ public class MainTest {
         }, "Add command with no fields handled correctly");
     }
 
+    //@@author kaboomzxc
     @Test
     void testMainProcessCommandIncompleteCommand() {
         Assertions.assertDoesNotThrow(() -> {
@@ -330,7 +367,7 @@ public class MainTest {
         }, "Incomplete add command handled correctly");
     }
 
-
+    //@@author kaboomzxc
     // Edge Cases - Empty or Special Characters
     @Test
     void testMainProcessCommandEmptyName() {
@@ -340,6 +377,7 @@ public class MainTest {
         }, "Processing add command with empty name should not throw exception");
     }
 
+    //@@author kaboomzxc
     @Test
     void testMainProcessCommandNameWithSpecialChars() {
         Assertions.assertDoesNotThrow(() -> {
@@ -348,7 +386,7 @@ public class MainTest {
         }, "Processing add command with special characters should not throw exception");
     }
 
-
+    //@@author kaboomzxc
     //Input validation Tests
     @Test
     void testMainProcessCommandEmptyString() throws IOException {
@@ -356,18 +394,21 @@ public class MainTest {
         Assertions.assertFalse(result, "Empty command should return false");
     }
 
+    //@@author kaboomzxc
     @Test
     void testMainProcessCommandWithExtraSpaces() throws IOException {
         boolean result = Main.processCommand("   help   ");
         Assertions.assertFalse(result, "Command with extra spaces should return false");
     }
 
+    //@@author kaboomzxc
     @Test
     void testMainProcessCommandCaseInsensitive() throws IOException {
         boolean result = Main.processCommand("HELP");
         Assertions.assertFalse(result, "Case insensitive command should return false");
     }
 
+    //@@author kaboomzxc
     // Appointment Time Conflict Tests
     @Test
     void testMainProcessCommandOverlappingAppointments() {
@@ -378,6 +419,7 @@ public class MainTest {
         }, "Processing overlapping appointments should not throw exception");
     }
 
+    //@@author kaboomzxc
     // Boundary Tests for Date and Time
     @Test
     void testMainProcessCommandDateBoundary() {
@@ -387,6 +429,7 @@ public class MainTest {
         }, "Processing add command with boundary date/time should not throw exception");
     }
 
+    //@@author kaboomzxc
     // Multiple Field Updates
     @Test
     void testMainProcessCommandMultipleEdits() {
@@ -397,6 +440,7 @@ public class MainTest {
         }, "Processing edit command with multiple fields should not throw exception");
     }
 
+    //@@author kaboomzxc
     // Search Edge Cases
     @Test
     void testMainProcessCommandPartialSearch() {
@@ -406,6 +450,7 @@ public class MainTest {
         }, "Processing partial name search should not throw exception");
     }
 
+    //@@author kaboomzxc
     // Command Combinations
     @Test
     void testMainProcessCommandSequence() {
@@ -417,6 +462,7 @@ public class MainTest {
         }, "Processing sequence of commands should not throw exception");
     }
 
+    //@@author kaboomzxc
     // Delete Validation Tests
     @Test
     void testMainProcessCommandDeleteNonexistent() {
@@ -426,6 +472,7 @@ public class MainTest {
         }, "Processing delete of nonexistent record should not throw exception");
     }
 
+    //@@author kaboomzxc
     // Visit History Tests
     @Test
     void testMainProcessCommandMultipleVisits() {
@@ -437,6 +484,8 @@ public class MainTest {
             Assertions.assertFalse(result, "Multiple visits should be handled correctly");
         }, "Processing multiple visits should not throw exception");
     }
+
+    //@@author kaboomzxc
     // Complex Data Tests
     @Test
     void testMainProcessCommandWithSpecialCharacters() throws IOException {
@@ -445,6 +494,7 @@ public class MainTest {
         Assertions.assertFalse(result, "Command with special characters should return false");
     }
 
+    //@@author kaboomzxc
     @Test
     void testMainProcessCommandSequentialOperations() throws IOException {
         Main.processCommand("add n/John Doe ic/S9876543A v/01-11-2024 14:30");
