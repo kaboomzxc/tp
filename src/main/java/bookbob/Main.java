@@ -25,11 +25,11 @@ public class Main {
         }
 
 
-    try {
-        String[] inputArr = command.split(" ", 2);
-        String cmd = inputArr[0];
+        try {
+            String[] inputArr = command.split(" ", 2);
+            String cmd = inputArr[0];
 
-        switch (cmd) {
+            switch (cmd) {
             case "find":
                 commandHandler.find(command, records);
                 break;
@@ -95,11 +95,11 @@ public class Main {
             default:
                 System.out.println("Unknown command. Type 'help' for a list of commands.");
                 break;
+            }
+        } catch (Exception e) {
+            System.out.println("Error processing command: " + e.getMessage());
+            return false;
         }
-    } catch (Exception e) {
-        System.out.println("Error processing command: " + e.getMessage());
-        return false;
-    }
         return false;
     }
 

@@ -552,7 +552,7 @@ public class CommandHandlerTest {
                 "v/01-10-2024 17:30 ha/Bukit Gombak dob/06071997", records);
         command.find("Jack", records);
         String expectedOutput = "Patient Jack Wong with NRIC S9765432T added.\nInvalid search parameters. " +
-                "Please use the format: find n/NAME ic/NRIC [p/PHONE] " +
+                "Please use the format: [find n/NAME] [ic/NRIC] [p/PHONE] " +
                 "[ha/ADDRESS] [dob/DOB] [al/ALLERGY] [s/SEX] [mh/MEDICAL_HISTORY]";
         assertEquals(expectedOutput,
                 outputStreamCaptor.toString().trim().replace(System.lineSeparator(), "\n"));
