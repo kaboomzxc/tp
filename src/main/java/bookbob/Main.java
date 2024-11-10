@@ -82,14 +82,16 @@ public class Main {
         }
 
         //@@author kaboomzxc
-        while (true) {
+        boolean isRunning = true;
+        while (isRunning) {
+            System.out.print("Enter command: ");  
+            System.out.flush();
+
             try {
                 String input = "";
-                // Ensure there is input to process
                 if (in.hasNextLine()) {
                     input = in.nextLine().trim();
                 } else {
-                    // Scanner has been closed or reached end of input
                     System.out.println("Error reading input. Restarting input scanner...");
                     in.close();
                     in = new Scanner(System.in);
@@ -101,28 +103,12 @@ public class Main {
                     continue;
                 }
 
-                try {
-                    Parser.handleCommand(input, commandHandler, records, appointmentRecord);
-                } catch (Exception e) {
-                    logger.log(Level.SEVERE, "Error processing command: " + e.getMessage(), e);
-                    System.out.println("An error occurred. Please try another command.");
-                    // Make sure records are saved even if there's an error
-                    try {
-                        FileHandler.autosave(records);
-                        FileHandler.autosave(appointmentRecord);
-                    } catch (IOException saveError) {
-                        logger.log(Level.SEVERE, "Error saving after command error", saveError);
-                    }
-                }
-
-                System.out.print("Enter command: "); // Add prompt for next command
-                System.out.flush(); // Ensure output is shown
+                // Handle the command and get continuation status
+                isRunning = Parser.handleCommand(input, commandHandler, records, appointmentRecord);
 
             } catch (Exception e) {
                 logger.log(Level.SEVERE, "Critical error in main loop: " + e.getMessage(), e);
-                System.out.println("A critical error occurred in Main. Now Attempting to continue,");
-                System.out.print("Enter command: ");
-                System.out.flush();
+                System.out.println("A critical error occurred. Please try again.");
             }
         }
     }

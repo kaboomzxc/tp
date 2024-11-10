@@ -566,6 +566,7 @@ public class CommandHandler {
             // Extract NRIC first (mandatory field)
             String nric = extractNric(input);
             if (nric.isEmpty()) {
+                System.out.println("Please provide the patient's NRIC");
                 return;
             }
 
@@ -586,6 +587,7 @@ public class CommandHandler {
             // Extract visit date (mandatory field)
             String visitDateString = extractVisitDate(input);
             if (visitDateString == null) {
+                System.out.println("Please provide the visit date and time (format: dd-MM-yyyy HH:mm)");
                 return;
             }
 
@@ -601,27 +603,33 @@ public class CommandHandler {
 
             // Duplicate Date&Time check
             for (Visit existingVisit : targetPatient.getVisits()) {
-                if (existingVisit.getVisitDate().toString().equals(visitDate.toString())) {
+                if (existingVisit.getVisitDate().equals(visitDate)) {
                     System.out.println("Error: A visit already exists for this patient at " +
                             visitDate.format(formatter));
-                    return;
+                    System.out.print("Enter command: ");
+                    System.out.flush();
+                    return;  // Return without throwing exception
                 }
             }
 
-            // Extract medications (optional, can be multiple)
+            // Extract medications and diagnoses (optional)
             ArrayList<String> medications = extractMedications(input);
-
-            // Extract diagnoses (optional, can be multiple)
             ArrayList<String> diagnoses = extractDiagnoses(input);
 
-            // Create new visit with the collected data
+            // Create new visit and add it
             Visit newVisit = new Visit(visitDate, diagnoses, medications);
             targetPatient.getVisits().add(newVisit);
 
             // Save the updated records
-            FileHandler.autosave(records);
+            try {
+                FileHandler.autosave(records);
+            } catch (IOException e) {
+                System.out.println("Warning: Failed to save the visit. Please try again.");
+                logger.log(Level.SEVERE, "Failed to save visit", e);
+                return;
+            }
 
-            // Print confirmation message with visit details
+            // Print confirmation message
             System.out.println("Visit added successfully for patient: " + targetPatient.getName());
             System.out.println("Visit date: " + visitDate.format(formatter));
             if (!diagnoses.isEmpty()) {
@@ -633,8 +641,7 @@ public class CommandHandler {
 
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Error adding visit", e);
-            System.out.println("Error adding visit: " + e.getMessage());
-            e.printStackTrace();
+            System.out.println("Error adding visit. Please check your input and try again.");
         }
     }
 
