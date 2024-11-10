@@ -599,6 +599,15 @@ public class CommandHandler {
                 return;
             }
 
+            // Duplicate Date&Time check
+            for (Visit existingVisit : targetPatient.getVisits()) {
+                if (existingVisit.getVisitDate().toString().equals(visitDate.toString())) {
+                    System.out.println("Error: A visit already exists for this patient at " +
+                            visitDate.format(formatter));
+                    return;
+                }
+            }
+
             // Extract medications (optional, can be multiple)
             ArrayList<String> medications = extractMedications(input);
 
