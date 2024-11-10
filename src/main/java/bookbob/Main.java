@@ -15,6 +15,94 @@ import java.util.logging.Logger;
 public class Main {
     private static final Logger logger = Logger.getLogger("Main.class");
 
+    public static boolean processCommand(String command) throws IOException {
+        Records records = new Records();
+        AppointmentRecord appointmentRecord = new AppointmentRecord();
+        CommandHandler commandHandler = new CommandHandler();
+
+        if (command.equals("exit")) {
+            return true;
+        }
+
+
+        try {
+            String[] inputArr = command.split(" ", 2);
+            String cmd = inputArr[0];
+
+            switch (cmd) {
+                case "find":
+                    commandHandler.find(command, records);
+                    break;
+                case "add":
+                    if (!command.contains("n/")) {
+                        System.out.println("Please provide the patient's name.");
+                        return false;
+                    }
+                    if (!command.contains("ic/")) {
+                        System.out.println("Please provide the patient's NRIC.");
+                        return false;
+                    }
+                    if (!command.contains("v/")) {
+                        System.out.println("Please provide a visit date.");
+                        return false;
+                    }
+                    commandHandler.add(command, records);
+                    break;
+                case "list":
+                    commandHandler.list(records);
+                    break;
+                case "edit":
+                    commandHandler.edit(command, records);
+                    break;
+                case "editVisit":
+                    commandHandler.editVisit(command, records);
+                    break;
+                case "delete":
+                    if (inputArr.length > 1) {
+                        String nric = inputArr[1].trim();
+                        commandHandler.delete(nric, records);
+                    } else {
+                        System.out.println("Please specify an NRIC to delete.");
+                    }
+                    break;
+                case "help":
+                    commandHandler.help();
+                    break;
+                case "appointment":
+                    commandHandler.appointment(command, appointmentRecord);
+                    break;
+                case "listAppointments":
+                    commandHandler.listAppointments(appointmentRecord);
+                    break;
+                case "deleteAppointment":
+                    commandHandler.deleteAppointment(command, appointmentRecord);
+                    break;
+                case "findAppointment":
+                    commandHandler.findAppointment(inputArr[1], appointmentRecord);
+                    break;
+                case "findVisit":
+                    commandHandler.findVisitByIc(inputArr[1], records);
+                    break;
+                case "findMedication":
+                    commandHandler.findVisitByMedication(inputArr[1], records);
+                    break;
+                case "findDiagnosis":
+                    commandHandler.findVisitByDiagnosis(inputArr[1], records);
+                    break;
+                case "addVisit":
+                    commandHandler.addVisit(command, records);
+                    break;
+                default:
+                    System.out.println("Unknown command. Type 'help' for a list of commands.");
+                    break;
+            }
+        } catch (Exception e) {
+            System.out.println("Error processing command: " + e.getMessage());
+            return false;
+        }
+        return false;
+    }
+
     public static void main(String[] args) throws IOException {
         System.out.println("Welcome to BookBob, Dr. Bob!");
         Scanner in = new Scanner(System.in);
