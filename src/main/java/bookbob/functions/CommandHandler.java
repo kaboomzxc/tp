@@ -606,8 +606,7 @@ public class CommandHandler {
                 if (existingVisit.getVisitDate().equals(visitDate)) {
                     System.out.println("Error: A visit already exists for this patient at " +
                             visitDate.format(formatter));
-                    System.out.print("Enter command: ");
-                    System.out.flush();
+
                     return;  // Return without throwing exception
                 }
             }

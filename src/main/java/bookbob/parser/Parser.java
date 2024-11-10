@@ -88,6 +88,7 @@ public class Parser {
             logAndExecute("find", () -> commandHandler.find(input, records));
             break;
 
+        //@@author kaboomzxc
         case "addVisit":
             logAndExecute("addVisit", () -> {
                 try {

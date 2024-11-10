@@ -84,7 +84,7 @@ public class Main {
         //@@author kaboomzxc
         boolean isRunning = true;
         while (isRunning) {
-            System.out.print("Enter command: ");  
+            System.out.print("Enter command: ");
             System.out.flush();
 
             try {
