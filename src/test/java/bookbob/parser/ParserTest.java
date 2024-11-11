@@ -792,5 +792,136 @@ class ParserTest {
             Mockito.verify(commandHandler, Mockito.never()).list(records);
         }
     }
+    @Nested
+    @DisplayName("Command Parser Edge Cases")
+    class CommandParserEdgeCases {
+        @Test
+        @DisplayName("Test delete command without arguments")
+        void testDeleteCommandNoArgs() throws IOException {
+            // Arrange
+            String input = "delete";
+
+            // Act
+            boolean result = Parser.handleCommand(input, commandHandler, records, appointmentRecord);
+
+            // Assert
+            Assertions.assertTrue(result);
+            Assertions.assertTrue(outputStreamCaptor.toString().contains("Please specify a NRIC"));
+        }
+
+        @Test
+        @DisplayName("Test deleteAppointment with missing parameters")
+        void testDeleteAppointmentMissingParams() throws IOException {
+            String[] inputs = {
+                    "deleteAppointment ic/S9534567A", // missing date and time
+                    "deleteAppointment ic/S9534567A date/21-10-2024", // missing time
+                    "deleteAppointment ic/S9534567A time/15:48" // missing date
+            };
+
+            for (String input : inputs) {
+                outputStreamCaptor.reset();
+
+                // Act
+                boolean result = Parser.handleCommand(input, commandHandler, records, appointmentRecord);
+
+                // Assert
+                Assertions.assertTrue(result);
+                // The command is still passed to CommandHandler for validation
+                Mockito.verify(commandHandler, Mockito.times(1)).deleteAppointment(input, appointmentRecord);
+                Mockito.clearInvocations(commandHandler);
+            }
+        }
+
+        @Test
+        @DisplayName("Test find commands with empty search criteria")
+        void testFindEmptySearchCriteria() throws IOException {
+            String[] inputs = {
+                    "find n/",
+                    "find ic/",
+                    "find p/",
+                    "find ha/",
+                    "find dob/"
+            };
+
+            for (String input : inputs) {
+                outputStreamCaptor.reset();
+                boolean result = Parser.handleCommand(input, commandHandler, records, appointmentRecord);
+                Assertions.assertTrue(result);
+                Mockito.verify(commandHandler, Mockito.times(1)).find(input, records);
+                Mockito.clearInvocations(commandHandler);
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("Additional Error Scenarios")
+    class AdditionalErrorScenarios {
+        @Test
+        @DisplayName("Test findAppointment command with no args")
+        void testFindAppointmentNoArgs() throws IOException {
+            // Arrange
+            String input = "findAppointment";
+
+            // Act
+            boolean result = Parser.handleCommand(input, commandHandler, records, appointmentRecord);
+
+            // Assert
+            Assertions.assertTrue(result);
+            Assertions.assertTrue(outputStreamCaptor.toString().contains("Please provide search criteria"));
+        }
+
+        @Test
+        @DisplayName("Test multiple consecutive commands")
+        void testMultipleConsecutiveCommands() throws IOException {
+            // Test handling of multiple commands in quick succession
+            String[] commands = {
+                    "list",
+                    "help",
+                    "listAppointments",
+                    "findVisit S9534567A",
+                    "findDiagnosis fever"
+            };
+
+            for (String cmd : commands) {
+                outputStreamCaptor.reset();
+                boolean result = Parser.handleCommand(cmd, commandHandler, records, appointmentRecord);
+                Assertions.assertTrue(result);
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("Parameter Handling Tests")
+    class ParameterHandlingTests {
+        @Test
+        @DisplayName("Test addVisit with varying parameter orders")
+        void testAddVisitParameterOrder() throws IOException {
+            String[] inputs = {
+                    "addVisit ic/S9534567A v/21-10-2024 15:48 d/Fever m/Paracetamol",
+                    "addVisit v/21-10-2024 15:48 ic/S9534567A m/Paracetamol d/Fever",
+                    "addVisit d/Fever m/Paracetamol ic/S9534567A v/21-10-2024 15:48"
+            };
+
+            for (String input : inputs) {
+                outputStreamCaptor.reset();
+                boolean result = Parser.handleCommand(input, commandHandler, records, appointmentRecord);
+                Assertions.assertTrue(result);
+                Mockito.verify(commandHandler, Mockito.times(1)).addVisit(input, records);
+                Mockito.clearInvocations(commandHandler);
+            }
+        }
+
+        @Test
+        @DisplayName("Test edit with multiple fields")
+        void testEditMultipleFields() throws IOException {
+            String input = "edit ic/S9534567A /to n/John Doe p/91234567 ha/New Address s/Male";
+
+            boolean result = Parser.handleCommand(input, commandHandler, records, appointmentRecord);
+
+            Assertions.assertTrue(result);
+            Mockito.verify(commandHandler, Mockito.times(1)).edit(input, records);
+        }
+    }
 }
+
 
